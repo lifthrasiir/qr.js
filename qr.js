@@ -770,7 +770,7 @@ var QRCode = {
 		options = options || {};
 		var matrix = QRCode['generate'](data, options);
 		var modsize = Math.max(options.modulesize || 5, 0.5);
-		var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
+		var margin = Math.max(options.margin != null ? options.margin : 4, 0.0);
 		var n = matrix.length;
 		var size = modsize * (n + 2 * margin);
 
