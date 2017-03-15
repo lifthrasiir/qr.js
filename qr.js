@@ -714,16 +714,18 @@ var QRCode = {
 		var matrix = QRCode['generate'](data, options);
 		var modsize = Math.max(options.modulesize || 5, 0.5);
 		var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
+		var fillcolor = options.fillcolor ? options.fillcolor : "#FFFFFF";
+		var textcolor = options.textcolor ? options.textcolor : "#000000";	
 
 		var e = document.createElement('div');
 		var n = matrix.length;
 		var html = ['<table border="0" cellspacing="0" cellpadding="0" style="border:' +
-			modsize*margin + 'px solid #fff;background:#fff">'];
+			modsize*margin + 'px solid ' + fillcolor + ';background:' + fillcolor + '">'];
 		for (var i = 0; i < n; ++i) {
 			html.push('<tr>');
 			for (var j = 0; j < n; ++j) {
 				html.push('<td style="width:' + modsize + 'px;height:' + modsize + 'px' +
-					(matrix[i][j] ? ';background:#000' : '') + '"></td>');
+					(matrix[i][j] ? ';background:' + textcolor : '') + '"></td>');
 			}
 			html.push('</tr>');
 		}
@@ -739,6 +741,8 @@ var QRCode = {
 		var modsize = Math.max(options.modulesize || 5, 0.5);
 		var margin = Math.max(options.margin? options.margin : 4, 0.0);
 		var size = modsize * (n + 2 * margin);
+		var fillcolor = options.fillcolor ? options.fillcolor : "#FFFFFF";
+		var textcolor = options.textcolor ? options.textcolor : "#000000";		
 
 		var common = ' class= "fg"'+' width="'+modsize+'" height="'+modsize+'"/>';
 
@@ -747,7 +751,7 @@ var QRCode = {
 		e.setAttribute('style', 'shape-rendering:crispEdges');
 
 		var svg = [
-			'<style scoped>.bg{fill:#FFF}.fg{fill:#000}</style>',
+			'<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>',
 			'<rect class="bg" x="0" y="0"',
 			'width="'+size+'" height="'+size+'"/>',
 		];
@@ -770,18 +774,20 @@ var QRCode = {
 		options = options || {};
 		var matrix = QRCode['generate'](data, options);
 		var modsize = Math.max(options.modulesize || 5, 0.5);
-		var margin = Math.max(options.margin != null ? options.margin : 4, 0.0);
+		var margin = Math.max(options.margin != null ? options.margin : 4, 0.0);		
 		var n = matrix.length;
 		var size = modsize * (n + 2 * margin);
+		var fillcolor = options.fillcolor ? options.fillcolor : "#FFFFFF";
+		var textcolor = options.textcolor ? options.textcolor : "#000000";
 
 		var canvas = document.createElement('canvas'), context;
 		canvas.width = canvas.height = size;
 		context = canvas.getContext('2d');
 		if (!context) throw 'canvas support is needed for PNG output';
 
-		context.fillStyle = '#fff';
+		context.fillStyle = fillcolor;
 		context.fillRect(0, 0, size, size);
-		context.fillStyle = '#000';
+		context.fillStyle = textcolor;
 		for (var i = 0; i < n; ++i) {
 			for (var j = 0; j < n; ++j) {
 				if (matrix[i][j]) {
